@@ -75,3 +75,7 @@ AGENT_MUJOCO = {
 AGENT_BOX2D = {
     'render': True,
 }
+
+myAGENT_BOX2D = {
+    'render': False,
+}
