@@ -78,7 +78,7 @@ class AgentBox2D(Agent):
         new_sample.set(ACTION, U)
         if save:
             self._samples[condition].append(new_sample)
-        self.pub(5)
+        self.pub.publish(5)
         return new_sample
 
     def _init_sample(self, b2d_X):
