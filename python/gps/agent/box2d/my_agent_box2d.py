@@ -24,6 +24,7 @@ class AgentBox2D(Agent):
         self._setup_world(self._hyperparams["world"],
                           self._hyperparams["target_state"],
                           self._hyperparams["render"])
+        rospy.init_node('dummy', anonymous=True)
         self.pub = rospy.Publisher('pre_dis', Float64, queue_size=1)
 
     def _setup_conditions(self):
