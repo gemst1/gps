@@ -21,7 +21,7 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINT
 
 SENSOR_DIMS = {
     JOINT_ANGLES: 2,
-    ACTION:2
+    ACTION: 1
 }
 
 BASE_DIR = '/'.join(str.split(gps_filepath, '/')[:-2])
