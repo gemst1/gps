@@ -23,7 +23,7 @@ class AgentBox2D(Agent):
 
         rospy.init_node('dummy_agent', anonymous=True)
         self.pub = rospy.Publisher('des_dis', Float32, queue_size=1)
-        self.sub = rospy.Subscriber('des_dis', Float32, self.callback)
+        self.sub = rospy.Subscriber('pre_dis', Float32, self.callback)
 
         self.x0 = self._hyperparams["x0"]
 
