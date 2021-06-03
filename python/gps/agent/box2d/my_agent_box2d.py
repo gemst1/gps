@@ -30,7 +30,7 @@ class AgentBox2D(Agent):
     def callback(self, distance):
         dis = distance.data
         self.sub_state = {JOINT_ANGLES: np.array([dis, 0])}
-        self.waiting = False
+        self._waiting = False
 
     def pub_and_sub(self, msg_to_pub):
         self._waiting = True
