@@ -42,7 +42,7 @@ if not os.path.exists(common['data_files_dir']):
 
 agent = {
     'type': AgentBox2D,
-    'target_state' : np.array([3, 0]),
+    'target_state' : np.array([50, 0]),
     'x0': np.array([0, 0]),
     'conditions': common['conditions'],
     'dt': 0.05,
