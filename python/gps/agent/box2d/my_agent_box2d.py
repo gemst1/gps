@@ -25,6 +25,8 @@ class AgentBox2D(Agent):
         self.pub = rospy.Publisher('des_dis', Float64, queue_size=1)
         self.sub = rospy.Subscriber('des_dis', Float64, self.callback)
 
+        self.x0 = self._hyperparams["x0"]
+
     def callback(self, distance):
         dis = distance.data
         self.sub_state = {JOINT_ANGLES: np.array([dis])}
