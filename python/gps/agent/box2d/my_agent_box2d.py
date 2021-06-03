@@ -34,7 +34,7 @@ class AgentBox2D(Agent):
 
     def pub_and_sub(self, msg_to_pub):
         self._waiting = True
-        self.pub.publish(msg_to_pub)
+        self.pub.publish(msg_to_pub[0])
 
         time_waited = 0
         while self._waiting:
