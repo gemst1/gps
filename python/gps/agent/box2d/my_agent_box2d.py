@@ -58,7 +58,7 @@ class AgentBox2D(Agent):
             save (boolean): Whether or not to store the trial into the samples.
             noisy (boolean): Whether or not to use noise during sampling.
         """
-        b2d_X = self.pub_and_sub(11111)
+        b2d_X = self.pub_and_sub(11111.)
         new_sample = self._init_sample(b2d_X)
         U = np.zeros([self.T, self.dU])
         if noisy:
