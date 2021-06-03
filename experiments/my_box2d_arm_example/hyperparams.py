@@ -40,9 +40,13 @@ common = {
 if not os.path.exists(common['data_files_dir']):
     os.makedirs(common['data_files_dir'])
 
+traj = np.zeros((100,2))
+for i in range(100):
+    traj[i, 0] = i*0.5
+
 agent = {
     'type': AgentBox2D,
-    'target_state' : np.array([50, 0]),
+    'target_state' : traj,
     'x0': np.array([0, 0]),
     'conditions': common['conditions'],
     'dt': 0.05,
