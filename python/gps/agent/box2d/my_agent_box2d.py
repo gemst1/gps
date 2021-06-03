@@ -72,7 +72,7 @@ class AgentBox2D(Agent):
             if (t+1) < self.T:
                 b2d_X = self.pub_and_sub(U[t, :])
                 # b2d_X = self.pub_and_sub(10)
-                print(b2d_X)
+                print("action: ", U[t, :], b2d_X)
                 self._set_sample(new_sample, b2d_X, t)
         new_sample.set(ACTION, U)
         if save:
