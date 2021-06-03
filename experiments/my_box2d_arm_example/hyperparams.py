@@ -69,7 +69,7 @@ algorithm['init_traj_distr'] = {
 
 action_cost = {
     'type': CostAction,
-    'wu': np.array([1, 1])
+    'wu': np.array([1])
 }
 
 state_cost = {
