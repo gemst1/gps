@@ -6,6 +6,7 @@ from gps.agent.agent_utils import generate_noise, setup
 from gps.agent.config import myAGENT_BOX2D
 from gps.proto.gps_pb2 import ACTION
 from gps.sample.sample import Sample
+from gps.proto.gps_pb2 import JOINT_ANGLES
 
 import rospy
 from std_msgs.msg import Float64
@@ -20,30 +21,26 @@ class AgentBox2D(Agent):
         config.update(hyperparams)
         Agent.__init__(self, config)
 
-        self._setup_conditions()
-        self._setup_world(self._hyperparams["world"],
-                          self._hyperparams["target_state"],
-                          self._hyperparams["render"])
-        rospy.init_node('dummy', anonymous=True)
-        self.pub = rospy.Publisher('pre_dis', Float64, queue_size=1)
+        rospy.init_node('dummy_agent', anonymous=True)
+        self.pub = rospy.Publisher('des_dis', Float64, queue_size=1)
+        self.sub = rospy.Subscriber('des_dis', Float64, self.callback)
 
-    def _setup_conditions(self):
-        """
-        Helper method for setting some hyperparameters that may vary by
-        condition.
-        """
-        conds = self._hyperparams['conditions']
-        for field in ('x0', 'x0var', 'pos_body_idx', 'pos_body_offset',
-                      'noisy_body_idx', 'noisy_body_var'):
-            self._hyperparams[field] = setup(self._hyperparams[field], conds)
+    def callback(self, distance):
+        dis = distance.data
+        self.sub_state = {JOINT_ANGLES: np.array([dis])}
+        self.waiting = False
 
-    def _setup_world(self, world, target, render):
-        """
-        Helper method for handling setup of the Box2D world.
-        """
-        self.x0 = self._hyperparams["x0"]
-        self._worlds = [world(self.x0[i], target, render)
-                        for i in range(self._hyperparams['conditions'])]
+    def pub_and_sub(self, msg_to_pub):
+        self._waiting = True
+        self.pub.publish(msg_to_pub)
+
+        time_waited = 0
+        while self._waiting:
+            rospy.sleep(0.1)
+            time_waited += 0.01
+            if time_waited > 0.5:
+                raise TimeoutException(time_waited)
+        return self.sub_state
 
 
     def sample(self, policy, condition, verbose=False, save=True, noisy=True):
@@ -58,9 +55,7 @@ class AgentBox2D(Agent):
             save (boolean): Whether or not to store the trial into the samples.
             noisy (boolean): Whether or not to use noise during sampling.
         """
-        self._worlds[condition].run()
-        self._worlds[condition].reset_world()
-        b2d_X = self._worlds[condition].get_state()
+        b2d_X = self.pub_and_sub(0)
         new_sample = self._init_sample(b2d_X)
         U = np.zeros([self.T, self.dU])
         if noisy:
@@ -72,9 +67,7 @@ class AgentBox2D(Agent):
             obs_t = new_sample.get_obs(t=t)
             U[t, :] = policy.act(X_t, obs_t, t, noise[t, :])
             if (t+1) < self.T:
-                for _ in range(self._hyperparams['substeps']):
-                    self._worlds[condition].run_next(U[t, :])
-                b2d_X = self._worlds[condition].get_state()
+                b2d_X = self.pub_and_sub(U[t, :])
                 self._set_sample(new_sample, b2d_X, t)
         new_sample.set(ACTION, U)
         if save:

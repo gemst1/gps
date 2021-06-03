@@ -20,10 +20,8 @@ from gps.gui.config import generate_experiment_info
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, ACTION
 
 SENSOR_DIMS = {
-    JOINT_ANGLES: 2,
-    JOINT_VELOCITIES: 2,
-    END_EFFECTOR_POINTS: 3,
-    ACTION: 2
+    JOINT_ANGLES: 1,
+    ACTION: 1
 }
 
 BASE_DIR = '/'.join(str.split(gps_filepath, '/')[:-2])
@@ -44,19 +42,12 @@ if not os.path.exists(common['data_files_dir']):
 
 agent = {
     'type': AgentBox2D,
-    'target_state' : np.array([0, 0]),
-    'world' : ArmWorld,
-    'render' : True,
-    'x0': np.array([0.75*np.pi, 0.5*np.pi, 0, 0, 0, 0, 0]),
-    'rk': 0,
-    'dt': 0.05,
-    'substeps': 1,
+    'target_state' : np.array([3]),
+    'x0': np.array([0, 0, 0, 0, 0, 0, 0]),
     'conditions': common['conditions'],
-    'pos_body_idx': np.array([]),
-    'pos_body_offset': np.array([]),
     'T': 100,
     'sensor_dims': SENSOR_DIMS,
-    'state_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS],
+    'state_include': [JOINT_ANGLES],
     'obs_include': [],
 }
 
