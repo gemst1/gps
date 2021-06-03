@@ -45,6 +45,7 @@ agent = {
     'target_state' : np.array([3]),
     'x0': np.array([0, 0, 0, 0, 0, 0, 0]),
     'conditions': common['conditions'],
+    'dt': 0.05,
     'T': 100,
     'sensor_dims': SENSOR_DIMS,
     'state_include': [JOINT_ANGLES],
