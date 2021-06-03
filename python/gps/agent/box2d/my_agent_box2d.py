@@ -29,7 +29,7 @@ class AgentBox2D(Agent):
 
     def callback(self, distance):
         dis = distance.data
-        print(dis)
+        print("return: ", dis)
         self.sub_state = {JOINT_ANGLES: np.array([dis, 0])}
         self._waiting = False
 
