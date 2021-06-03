@@ -70,8 +70,8 @@ class AgentBox2D(Agent):
             obs_t = new_sample.get_obs(t=t)
             U[t, :] = policy.act(X_t, obs_t, t, noise[t, :])
             if (t+1) < self.T:
-                # b2d_X = self.pub_and_sub(U[t, :])
-                b2d_X = self.pub_and_sub(10)
+                b2d_X = self.pub_and_sub(U[t, :])
+                # b2d_X = self.pub_and_sub(10)
                 print(b2d_X)
                 self._set_sample(new_sample, b2d_X, t)
         new_sample.set(ACTION, U)
