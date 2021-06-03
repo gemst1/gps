@@ -38,7 +38,6 @@ class Agent(object):
             self._state_idx.append(list(range(i, i+dim)))
             i += dim
         self.dX = i
-        print(self.dX, self.dU)
 
         # List of indices for each data type in observation.
         self._obs_idx, i = [], 0
