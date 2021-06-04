@@ -21,6 +21,7 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINT
 
 SENSOR_DIMS = {
     JOINT_ANGLES: 2,
+    END_EFFECTOR_POINTS: 3,
     ACTION: 1
 }
 
@@ -52,7 +53,7 @@ agent = {
     'dt': 0.05,
     'T': 100,
     'sensor_dims': SENSOR_DIMS,
-    'state_include': [JOINT_ANGLES],
+    'state_include': [JOINT_ANGLES, END_EFFECTOR_POINTS],
     'obs_include': [],
 }
 

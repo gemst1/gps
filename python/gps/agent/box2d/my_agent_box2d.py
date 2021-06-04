@@ -6,7 +6,7 @@ from gps.agent.agent_utils import generate_noise, setup
 from gps.agent.config import myAGENT_BOX2D
 from gps.proto.gps_pb2 import ACTION
 from gps.sample.sample import Sample
-from gps.proto.gps_pb2 import JOINT_ANGLES
+from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS
 
 import rospy
 from std_msgs.msg import Float32
@@ -29,7 +29,7 @@ class AgentBox2D(Agent):
 
     def callback(self, distance):
         dis = distance.data
-        self.sub_state = {JOINT_ANGLES: np.array([dis, 0])}
+        self.sub_state = {JOINT_ANGLES: np.array([dis, 0]), END_EFFECTOR_POINTS: np.array([dis, 0, 0])}
         self._waiting = False
 
     def pub_and_sub(self, msg_to_pub):
