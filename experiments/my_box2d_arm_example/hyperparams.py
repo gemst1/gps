@@ -48,7 +48,7 @@ for i in range(100):
 agent = {
     'type': AgentBox2D,
     'target_state' : traj,
-    'x0': np.array([0, 0]),
+    'x0': np.array([0, 0, 0, 0, 0]),
     'conditions': common['conditions'],
     'dt': 0.05,
     'T': 100,
