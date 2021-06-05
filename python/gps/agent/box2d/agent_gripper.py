@@ -12,7 +12,7 @@ from gps.agent.ros.ros_utils import ServiceEmulator
 import rospy
 from std_msgs.msg import Float32
 
-class AgentBox2D(Agent):
+class AgentGripper(Agent):
     """
     All communication between the algorithms and Box2D is done through
     this class.
