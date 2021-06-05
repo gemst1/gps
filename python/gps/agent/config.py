@@ -79,3 +79,7 @@ AGENT_BOX2D = {
 myAGENT_BOX2D = {
     'render': False,
 }
+
+AGENT_GRIPPER = {
+    
+}
