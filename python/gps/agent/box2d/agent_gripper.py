@@ -34,12 +34,12 @@ class AgentGripper(Agent):
 
     def _init_pubs_and_subs(self):
         self._trial_service = ServiceEmulator(
-            self._hyperparams['trial_command_topic'], Float32,
-            self._hyperparams['state_result_topic'], Float32
+            'trial_command_topic', Float32,
+            'state_result_topic', Float32
         )
         self._reset_service = ServiceEmulator(
-            self._hyperparams['reset_command_topic'], Float32,
-            self._hyperparams['state_result_topic'], Float32
+            'reset_command_topic', Float32,
+            'state_result_topic', Float32
         )
 
 
