@@ -36,7 +36,7 @@ class AgentGripper(Agent):
 
     def msg_to_tgt_traj(self, traj_msg):
         traj = traj_msg.data
-        print(traj)
+        print(traj[0])
 
     def msg_to_state(self, msg):
         dis = msg.data
@@ -64,7 +64,7 @@ class AgentGripper(Agent):
 
     def sample_traj(self):
         traj_msg = self._rs_traj_service.publish_and_wait(0, timeout=20)
-        print(traj_msg)
+        self.msg_to_tgt_traj(traj_msg)
 
     def sample(self, policy, condition, verbose=False, save=True, noisy=True):
         """
