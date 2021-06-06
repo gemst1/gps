@@ -63,6 +63,10 @@ class AgentGripper(Agent):
             'rs_trial_command_topic', Float32,
             'rs_state_result_topic', GripperState
         )
+        self._rs_save_service = ServiceEmulator(
+            'rs_save_command_topic', Float32,
+            'rs_save_result_topic', Float32
+        )
         self._trial_service = ServiceEmulator(
             'trial_command_topic', Float32,
             'state_result_topic', Float32
@@ -110,6 +114,7 @@ class AgentGripper(Agent):
                 state = self.msgs_to_state(state_msg, rs_state_msg, t)
                 self._set_sample(new_sample, state, t)
         new_sample.set(ACTION, U)
+        self._rs_save_service.publish_and_wait(0)
         if save:
             self._samples[condition].append(new_sample)
         return new_sample
