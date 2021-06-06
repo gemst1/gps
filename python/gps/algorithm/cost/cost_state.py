@@ -38,8 +38,9 @@ class CostState(Cost):
             tgt = config['target_state']
             x = sample.get(data_type)
             # Inserted by Wonseok
-            print(type(tgt))
-            x = x[:,:tgt.shape[2]+1]
+            if type(tgt) == 'numpy.ndarray':
+                if tgt.shape != x.shape:
+                    x = x[:,:tgt.shape[1]+1]
             #####################
             _, dim_sensor = x.shape
 
