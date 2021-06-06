@@ -39,7 +39,12 @@ class AgentGripper(Agent):
         for traj in traj_msg.data:
             tgt_traj.append(traj.data)
         tgt_traj = np.array(tgt_traj)
-        print(tgt_traj.shape)
+        # self._hyperparams['target_state'] = tgt_traj
+
+    def msgs_to_state(self, state_msg, rs_state_msg):
+        dis = state_msg.data
+        rs_state = rs_state_msg.data
+        
 
     def msg_to_state(self, msg):
         dis = msg.data
@@ -82,6 +87,7 @@ class AgentGripper(Agent):
             noisy (boolean): Whether or not to use noise during sampling.
         """
         state_msg = self._reset_service.publish_and_wait(0)
+        rs_state_msg = self._rs_trial_service.publish_and_wait(0)
         state = self.msg_to_state(state_msg)
         new_sample = self._init_sample(state)
         U = np.zeros([self.T, self.dU])
