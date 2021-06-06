@@ -39,6 +39,7 @@ class AgentGripper(Agent):
         for traj in traj_msg.data:
             print(len(traj.data))
             tgt_traj.append(traj.data)
+        print(tgt_traj, tgt_traj[0])
         tgt_traj = np.array(tgt_traj)
         self._hyperparams['target_state'] = tgt_traj
 
