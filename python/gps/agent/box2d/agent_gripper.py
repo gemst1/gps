@@ -39,12 +39,14 @@ class AgentGripper(Agent):
         for traj in traj_msg.data:
             tgt_traj.append(traj.data)
         tgt_traj = np.array(tgt_traj)
-        # self._hyperparams['target_state'] = tgt_traj
+        self._hyperparams['target_state'] = tgt_traj
 
     def msgs_to_state(self, state_msg, rs_state_msg):
         dis = state_msg.data
         rs_state = rs_state_msg.data
-        
+        rs_state.append(dis)
+        state = {JOINT_ANGLES: np.array(rs_state), END_EFFECTOR_POINTS: np.array([dis, 0, 0])}
+        return state
 
     def msg_to_state(self, msg):
         dis = msg.data
@@ -88,7 +90,7 @@ class AgentGripper(Agent):
         """
         state_msg = self._reset_service.publish_and_wait(0)
         rs_state_msg = self._rs_trial_service.publish_and_wait(0)
-        state = self.msg_to_state(state_msg)
+        state = self.msgs_to_state(state_msg, rs_state_msg)
         new_sample = self._init_sample(state)
         U = np.zeros([self.T, self.dU])
         if noisy:
@@ -101,7 +103,8 @@ class AgentGripper(Agent):
             U[t, :] = policy.act(X_t, obs_t, t, noise[t, :])
             if (t+1) < self.T:
                 state_msg = self._trial_service.publish_and_wait(U[t, :])
-                state = self.msg_to_state(state_msg)
+                rs_state_msg = self._rs_trial_service.publish_and_wait(0)
+                state = self.msgs_to_state(state_msg, rs_state_msg)
                 self._set_sample(new_sample, state, t)
         new_sample.set(ACTION, U)
         if save:
