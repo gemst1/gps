@@ -93,7 +93,7 @@ class AgentGripper(Agent):
         r = rospy.Rate(1)
         r.sleep()
         rs_state_msg = self._rs_trial_service.publish_and_wait(0)
-        state = self.msgs_to_state(state_msg, rs_state_msg)
+        state = self.msgs_to_state(state_msg, rs_state_msg, 0)
         new_sample = self._init_sample(state)
         U = np.zeros([self.T, self.dU])
         if noisy:
