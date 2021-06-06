@@ -45,9 +45,8 @@ class GPSMain(object):
         self._data_files_dir = config['common']['data_files_dir']
 
         self.agent = config['agent']['type'](config['agent'])
-        config['agent']['target_state'] = self.agent._hyperparams['target_state']
+        config['algorithm']['cost']['costs'][1]['data_types']['1']['target_state'] = self.agent._hyperparams['target_state']
         print(config['algorithm']['cost']['costs'][1]['data_types'])
-        self._hyperparams['agent']['target_state'] = self.agent._hyperparams['target_state']
         self.data_logger = DataLogger()
         self.gui = GPSTrainingGUI(config['common']) if config['gui_on'] else None
 
