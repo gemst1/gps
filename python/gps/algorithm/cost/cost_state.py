@@ -41,6 +41,9 @@ class CostState(Cost):
             if type(tgt) == type(x):
                 if tgt.shape != x.shape:
                     x = x[:,:tgt.shape[1]]
+            # Compute state penalty.
+            dist = x - tgt
+            x = sample.get(data_type)
             #####################
             _, dim_sensor = x.shape
 
@@ -49,8 +52,6 @@ class CostState(Cost):
                 wp_final_multiplier=self._hyperparams['wp_final_multiplier']
             )
             wp = wp * np.expand_dims(wpm, axis=-1)
-            # Compute state penalty.
-            dist = x - tgt
 
             # Evaluate penalty term.
             l, ls, lss = evall1l2term(

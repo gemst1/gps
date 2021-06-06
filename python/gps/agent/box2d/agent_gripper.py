@@ -87,7 +87,6 @@ class AgentGripper(Agent):
             save (boolean): Whether or not to store the trial into the samples.
             noisy (boolean): Whether or not to use noise during sampling.
         """
-        print(self._hyperparams['target_state'].shape)
         state_msg = self._reset_service.publish_and_wait(0)
         rs_state_msg = self._rs_trial_service.publish_and_wait(0)
         state = self.msgs_to_state(state_msg, rs_state_msg)
