@@ -48,7 +48,7 @@ for i in range(100):
 agent = {
     'type': AgentGripper,
     'target_state' : [0.01],
-    'x0': np.zeros(65),
+    'x0': np.zeros(64),
     'conditions': common['conditions'],
     'dt': 0.05,
     'T': 25,
