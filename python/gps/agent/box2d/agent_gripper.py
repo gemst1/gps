@@ -42,11 +42,11 @@ class AgentGripper(Agent):
         tgt_traj = np.asarray(tgt_traj)
         self._hyperparams['target_state'] = tgt_traj
 
-    def msgs_to_state(self, state_msg, rs_state_msg):
+    def msgs_to_state(self, state_msg, rs_state_msg, t):
         dis = state_msg.data
         # rs_state = rs_state_msg.data + (dis,)
         rs_state = rs_state_msg.data
-        state = {JOINT_ANGLES: np.array(rs_state), END_EFFECTOR_POINTS: np.array([dis, 0, 0])}
+        state = {JOINT_ANGLES: np.array(rs_state), END_EFFECTOR_POINTS: np.array([t, dis, 0])}
         return state
 
     def msg_to_state(self, msg):
@@ -107,7 +107,7 @@ class AgentGripper(Agent):
             if (t+1) < self.T:
                 state_msg = self._trial_service.publish_and_wait(U[t, :])
                 rs_state_msg = self._rs_trial_service.publish_and_wait(0)
-                state = self.msgs_to_state(state_msg, rs_state_msg)
+                state = self.msgs_to_state(state_msg, rs_state_msg, t)
                 self._set_sample(new_sample, state, t)
         new_sample.set(ACTION, U)
         if save:
