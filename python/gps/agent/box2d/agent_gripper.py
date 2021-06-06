@@ -27,12 +27,7 @@ class AgentGripper(Agent):
         self._init_pubs_and_subs()
 
         # get target trajectory
-        # self.pub_traj = rospy.Publisher('rs_traj_command_topic', Float32, queue_size=1)
-        # self.pub_traj.publish(0)
-        # print("pub")
-        traj_msg = self._reset_service.publish_and_wait(0, timeout=20)
-        print(traj_msg)
-        self.msg_to_tgt_traj(traj_msg)
+        self.sample_traj()
 
         self.x0 = self._hyperparams["x0"]
 
@@ -46,7 +41,7 @@ class AgentGripper(Agent):
         return state
 
     def _init_pubs_and_subs(self):
-        self._traj_service = ServiceEmulator(
+        self._rs_traj_service = ServiceEmulator(
             'rs_traj_command_topic', Float32,
             'rs_traj_result_topic', GPSTrajectory
         )
@@ -63,6 +58,10 @@ class AgentGripper(Agent):
             'state_result_topic', Float32
         )
 
+
+    def sample_traj(self):
+        traj_msg = self._rs_traj_service.publish_and_wait(0, timeout=20)
+        print(traj_msg)
 
     def sample(self, policy, condition, verbose=False, save=True, noisy=True):
         """
