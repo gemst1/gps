@@ -37,10 +37,9 @@ class AgentGripper(Agent):
     def msg_to_tgt_traj(self, traj_msg):
         tgt_traj = []
         for traj in traj_msg.data:
-            print(len(traj.data))
             tgt_traj.append(traj.data)
-        print(tgt_traj, tgt_traj[0])
-        tgt_traj = np.array(tgt_traj)
+        tgt_traj = np.asarray(tgt_traj)
+        print(tgt_traj.shape)
         self._hyperparams['target_state'] = tgt_traj
 
     def msgs_to_state(self, state_msg, rs_state_msg):
