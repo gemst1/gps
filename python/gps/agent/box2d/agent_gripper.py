@@ -27,7 +27,7 @@ class AgentGripper(Agent):
         self._init_pubs_and_subs()
 
         # get target trajectory
-        traj_msg = self._traj_service.publish_and_wait(0, timeout=5)
+        traj_msg = self._traj_service.publish_and_wait(0, timeout=20)
         print(traj_msg)
         self.msg_to_tgt_traj(traj_msg)
 
