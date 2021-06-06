@@ -46,6 +46,7 @@ class GPSMain(object):
 
         self.agent = config['agent']['type'](config['agent'])
         print(self.agent._hyperparams['target_state'])
+        self.agent['target_state'] = self.agent._hyperparams['target_state']
         config['agent']['target_state'] = self.agent._hyperparams['target_state']
         self._hyperparams['agent']['target_state'] = self.agent._hyperparams['target_state']
         self.data_logger = DataLogger()
