@@ -26,6 +26,9 @@ class AgentGripper(Agent):
         rospy.init_node('gps_gripper_agent', anonymous=True)
         self._init_pubs_and_subs()
 
+        r = rospy.Rate(1)
+        r.sleep()
+
         # get target trajectory
         self.sample_traj()
 
