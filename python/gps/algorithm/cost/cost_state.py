@@ -39,8 +39,10 @@ class CostState(Cost):
             x = sample.get(data_type)
             # Inserted by Wonseok
             if type(tgt) == 'numpy.ndarray':
+                print(tgt.shape, x.shape)
                 if tgt.shape != x.shape:
                     x = x[:,:tgt.shape[1]+1]
+            print(x.shape)
             #####################
             _, dim_sensor = x.shape
 
