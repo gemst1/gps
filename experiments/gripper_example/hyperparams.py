@@ -81,7 +81,7 @@ state_cost = {
     'type': CostState,
     'data_types' : {
         JOINT_ANGLES: {
-            'wp': np.ones(61),
+            'wp': np.ones(60),
             'target_state': agent["target_state"],
         },
     },

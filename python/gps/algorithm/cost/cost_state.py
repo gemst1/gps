@@ -38,12 +38,9 @@ class CostState(Cost):
             tgt = config['target_state']
             x = sample.get(data_type)
             # Inserted by Wonseok
-            print(type(tgt))
             if type(tgt) == type(x):
-                print(tgt.shape, x.shape)
                 if tgt.shape != x.shape:
                     x = x[:,:tgt.shape[1]]
-            print(x.shape)
             #####################
             _, dim_sensor = x.shape
 
@@ -54,7 +51,6 @@ class CostState(Cost):
             wp = wp * np.expand_dims(wpm, axis=-1)
             # Compute state penalty.
             dist = x - tgt
-            print(tgt)
 
             # Evaluate penalty term.
             l, ls, lss = evall1l2term(
