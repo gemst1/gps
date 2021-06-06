@@ -44,8 +44,8 @@ class AgentGripper(Agent):
     def msgs_to_state(self, state_msg, rs_state_msg):
         dis = state_msg.data
         rs_state = rs_state_msg.data
-        print(type(rs_state))
-        rs_state.append(dis)
+        rs_state
+        rs_state = np.concatenate([rs_state, dis])
         state = {JOINT_ANGLES: np.array(rs_state), END_EFFECTOR_POINTS: np.array([dis, 0, 0])}
         return state
 
