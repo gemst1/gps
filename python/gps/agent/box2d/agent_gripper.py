@@ -38,6 +38,7 @@ class AgentGripper(Agent):
         tgt_traj = []
         for traj in traj_msg.data:
             tgt_traj.append(traj.data)
+            tgt_traj.append(traj.data)
         tgt_traj = np.asarray(tgt_traj)
         self._hyperparams['target_state'] = tgt_traj
 
@@ -89,6 +90,8 @@ class AgentGripper(Agent):
             noisy (boolean): Whether or not to use noise during sampling.
         """
         state_msg = self._reset_service.publish_and_wait(0)
+        r = rospy.Rate(1)
+        r.sleep()
         rs_state_msg = self._rs_trial_service.publish_and_wait(0)
         state = self.msgs_to_state(state_msg, rs_state_msg)
         new_sample = self._init_sample(state)

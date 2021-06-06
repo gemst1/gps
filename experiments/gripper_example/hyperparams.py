@@ -51,7 +51,7 @@ agent = {
     'x0': np.zeros(63),
     'conditions': common['conditions'],
     'dt': 0.05,
-    'T': 25,
+    'T': 50,
     'sensor_dims': SENSOR_DIMS,
     'state_include': [JOINT_ANGLES, END_EFFECTOR_POINTS],
     'obs_include': [],
@@ -111,8 +111,8 @@ algorithm['traj_opt'] = {
 algorithm['policy_opt'] = {}
 
 config = {
-    'iterations': 10,
-    'num_samples': 5,
+    'iterations': 20,
+    'num_samples': 10,
     'verbose_trials': 5,
     'common': common,
     'agent': agent,
