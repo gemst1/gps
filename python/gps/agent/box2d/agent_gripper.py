@@ -11,6 +11,7 @@ from gps.agent.ros.ros_utils import ServiceEmulator
 
 import rospy
 from std_msgs.msg import Float32
+from gps_agent_pkg.msg import GripperState, GPSTrajectory
 
 class AgentGripper(Agent):
     """
@@ -25,7 +26,15 @@ class AgentGripper(Agent):
         rospy.init_node('gps_gripper_agent', anonymous=True)
         self._init_pubs_and_subs()
 
+        # get target trajectory
+        traj_msg = self._traj_service.publish_and_wait(0)
+        self.msg_to_tgt_traj(traj_msg)
+
         self.x0 = self._hyperparams["x0"]
+
+    def msg_to_tgt_traj(self, traj_msg):
+        traj = traj_msg.data
+        print(traj)
 
     def msg_to_state(self, msg):
         dis = msg.data
@@ -33,6 +42,14 @@ class AgentGripper(Agent):
         return state
 
     def _init_pubs_and_subs(self):
+        self._traj_service = ServiceEmulator(
+            'rs_traj_command_topic', Float32,
+            'rs_traj_result_topic', GPSTrajectory
+        )
+        self._rs_trial_service = ServiceEmulator(
+            'rs_trial_command_topic', Float32,
+            'rs_state_result_topic', GripperState
+        )
         self._trial_service = ServiceEmulator(
             'trial_command_topic', Float32,
             'state_result_topic', Float32
