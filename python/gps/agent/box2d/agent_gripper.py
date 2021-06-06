@@ -27,9 +27,9 @@ class AgentGripper(Agent):
         self._init_pubs_and_subs()
 
         # get target trajectory
-        self.pub_traj = rospy.Publisher('rs_traj_command_topic', Float32, queue_size=1)
-        self.pub_traj.publish(0)
-        print("pub")
+        # self.pub_traj = rospy.Publisher('rs_traj_command_topic', Float32, queue_size=1)
+        # self.pub_traj.publish(0)
+        # print("pub")
         traj_msg = self._traj_service.publish_and_wait(0, timeout=20)
         print(traj_msg)
         self.msg_to_tgt_traj(traj_msg)
