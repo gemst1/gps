@@ -51,7 +51,7 @@ agent = {
     'x0': np.array([0, 0, 0, 0, 0]),
     'conditions': common['conditions'],
     'dt': 0.05,
-    'T': 100,
+    'T': 25,
     'sensor_dims': SENSOR_DIMS,
     'state_include': [JOINT_ANGLES, END_EFFECTOR_POINTS],
     'obs_include': [],

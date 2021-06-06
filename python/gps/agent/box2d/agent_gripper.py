@@ -35,8 +35,11 @@ class AgentGripper(Agent):
         self.x0 = self._hyperparams["x0"]
 
     def msg_to_tgt_traj(self, traj_msg):
-        traj = traj_msg.data
-        print(traj[0])
+        tgt_traj = []
+        for traj in traj_msg.data:
+            tgt_traj.append(traj.data)
+        tgt_traj = np.array(tgt_traj)
+        print(tgt_traj.shape)
 
     def msg_to_state(self, msg):
         dis = msg.data
