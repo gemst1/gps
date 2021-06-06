@@ -39,7 +39,7 @@ class CostState(Cost):
             x = sample.get(data_type)
             # Inserted by Wonseok
             print(type(tgt))
-            if type(tgt) == 'numpy.ndarray':
+            if type(tgt) == type(x):
                 print(tgt.shape, x.shape)
                 if tgt.shape != x.shape:
                     x = x[:,:tgt.shape[1]+1]
