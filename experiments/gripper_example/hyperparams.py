@@ -112,7 +112,7 @@ algorithm['policy_opt'] = {}
 
 config = {
     'iterations': 20,
-    'num_samples': 10,
+    'num_samples': 5,
     'verbose_trials': 5,
     'common': common,
     'agent': agent,
