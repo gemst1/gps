@@ -38,6 +38,7 @@ class CostState(Cost):
             tgt = config['target_state']
             x = sample.get(data_type)
             # Inserted by Wonseok
+            print(type(tgt))
             if type(tgt) == 'numpy.ndarray':
                 print(tgt.shape, x.shape)
                 if tgt.shape != x.shape:
