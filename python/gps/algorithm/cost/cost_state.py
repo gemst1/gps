@@ -42,7 +42,7 @@ class CostState(Cost):
             if type(tgt) == type(x):
                 print(tgt.shape, x.shape)
                 if tgt.shape != x.shape:
-                    x = x[:,:tgt.shape[1]+1]
+                    x = x[:,:tgt.shape[1]]
             print(x.shape)
             #####################
             _, dim_sensor = x.shape
