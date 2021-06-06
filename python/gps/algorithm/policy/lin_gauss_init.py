@@ -55,6 +55,7 @@ def init_lqr(hyperparams):
     ]))
     Ltt = Ltt / config['init_var']  # Cost function - quadratic term.
     lt = -Ltt.dot(np.r_[x0, np.zeros(dU)])  # Cost function - linear term.
+    print(Ltt.shape, x0.shape, dU)
 
     # Perform dynamic programming.
     K = np.zeros((T, dU, dX))  # Controller gains matrix.
