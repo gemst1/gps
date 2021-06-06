@@ -43,7 +43,6 @@ class CostState(Cost):
                     x = x[:,:tgt.shape[1]]
             # Compute state penalty.
             dist = x - tgt
-            x = sample.get(data_type)
             #####################
             _, dim_sensor = x.shape
 

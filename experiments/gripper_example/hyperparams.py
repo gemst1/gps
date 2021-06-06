@@ -20,7 +20,7 @@ from gps.gui.config import generate_experiment_info
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, ACTION
 
 SENSOR_DIMS = {
-    JOINT_ANGLES: 61,
+    JOINT_ANGLES: 60,
     END_EFFECTOR_POINTS: 3,
     ACTION: 1
 }
@@ -48,7 +48,7 @@ for i in range(100):
 agent = {
     'type': AgentGripper,
     'target_state' : [0.01],
-    'x0': np.zeros(64),
+    'x0': np.zeros(63),
     'conditions': common['conditions'],
     'dt': 0.05,
     'T': 25,
