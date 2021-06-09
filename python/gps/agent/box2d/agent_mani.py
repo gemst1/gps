@@ -4,9 +4,8 @@ import numpy as np
 from gps.agent.agent import Agent
 from gps.agent.agent_utils import generate_noise, setup
 from gps.agent.config import AGENT_MANI
-from gps.proto.gps_pb2 import ACTION
 from gps.sample.sample import Sample
-from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS
+from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, ACTION
 from gps.agent.ros.ros_utils import ServiceEmulator
 
 import rospy
@@ -49,9 +48,9 @@ class AgentMani(Agent):
         state = {JOINT_ANGLES: np.array(rs_state), END_EFFECTOR_POINTS: np.array([t, dis, 0])}
         return state
 
-    def msg_to_state(self, msg):
+    def msg_to_state(self, msg, t):
         joint_state = msg.traj
-        state = {JOINT_ANGLES: joint_state}
+        state = {JOINT_ANGLES: joint_state, JOINT_VELOCITIES: np.zeros(7), END_EFFECTOR_POINTS: np.array([t, joint_state[0], 0])}
         return state
 
     def _init_pubs_and_subs(self):
@@ -98,7 +97,7 @@ class AgentMani(Agent):
         # r.sleep()
         # rs_state_msg = self._rs_trial_service.publish_and_wait(0)
         # state = self.msgs_to_state(state_msg, rs_state_msg, 0)
-        state = self.msg_to_state(state_msg)
+        state = self.msg_to_state(state_msg, 0)
         new_sample = self._init_sample(state)
         U = np.zeros([self.T, self.dU])
         if noisy:
@@ -113,7 +112,7 @@ class AgentMani(Agent):
                 state_msg = self._trial_service.publish_and_wait(U[t, :], 10)
                 # rs_state_msg = self._rs_trial_service.publish_and_wait(0)
                 # state = self.msgs_to_state(state_msg, rs_state_msg, t)
-                state = self.msg_to_state(state_msg)
+                state = self.msg_to_state(state_msg, t)
                 self._set_sample(new_sample, state, t)
         new_sample.set(ACTION, U)
         # self._rs_save_service.publish_and_wait(0)
