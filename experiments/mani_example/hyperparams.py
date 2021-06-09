@@ -54,7 +54,7 @@ agent = {
     'dt': 0.05,
     'T': 50,
     'sensor_dims': SENSOR_DIMS,
-    'state_include': [JOINT_ANGLES],
+    'state_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS],
     'obs_include': [],
 }
 

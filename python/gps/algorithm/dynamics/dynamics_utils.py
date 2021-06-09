@@ -19,7 +19,6 @@ def guess_dynamics(gains, acc, dX, dU, dt):
     """
     #TODO: Use packing instead of assuming which indices are the joint
     #      angles.
-    print(dX, dU)
     Fd = np.vstack([
         np.hstack([
             np.eye(dU), dt * np.eye(dU), np.zeros((dU, dX - dU*2)),
