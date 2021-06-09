@@ -67,7 +67,7 @@ class AgentMani(Agent):
         #     'rs_save_result_topic', Float32
         # )
         self._trial_service = ServiceEmulator(
-            'trial_command_topic', Float32,
+            'trial_command_topic', traj_1d,
             'state_result_topic', traj_1d
         )
         self._reset_service = ServiceEmulator(
