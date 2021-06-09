@@ -83,3 +83,7 @@ myAGENT_BOX2D = {
 AGENT_GRIPPER = {
     
 }
+
+AGENT_MANI = {
+    
+}
