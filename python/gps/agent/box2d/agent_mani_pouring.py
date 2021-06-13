@@ -42,7 +42,7 @@ class AgentMani(Agent):
         self._hyperparams['target_state'] = tgt_traj
 
     def msgs_to_state(self, state_msg, rs_state_msg, t):
-        dis = state_msg.data[-3:]
+        dis = state_msg.traj[-3:]
         # rs_state = rs_state_msg.data + (dis,)
         rs_state = rs_state_msg.data
         state = {JOINT_ANGLES: np.array(rs_state), END_EFFECTOR_POINTS: np.array(dis)}
