@@ -51,7 +51,7 @@ agent = {
     'x0': np.zeros(63),
     'conditions': common['conditions'],
     'dt': 0.05,
-    'T': 50,
+    'T': 25,
     'sensor_dims': SENSOR_DIMS,
     'state_include': [JOINT_ANGLES, END_EFFECTOR_POINTS],
     'obs_include': [],
