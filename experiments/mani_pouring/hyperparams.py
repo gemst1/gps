@@ -6,7 +6,7 @@ from datetime import datetime
 import numpy as np
 
 from gps import __file__ as gps_filepath
-from gps.agent.box2d.agent_mani import AgentMani
+from gps.agent.box2d.agent_mani_pouring import AgentMani
 from gps.agent.box2d.arm_world import ArmWorld
 from gps.algorithm.algorithm_traj_opt import AlgorithmTrajOpt
 from gps.algorithm.cost.cost_state import CostState
