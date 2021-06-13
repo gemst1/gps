@@ -30,7 +30,7 @@ class AgentMani(Agent):
         r.sleep()
 
         # get target trajectory
-        # self.sample_traj()
+        self.sample_traj()
 
         self.x0 = self._hyperparams["x0"]
 
