@@ -1,7 +1,7 @@
 """
 Image Visualizer
 
-The Image Visualizer class expects to be given images in real time (via the
+The Image Visualizer class expects to be given images in real_pouring time (via the
 update function), and displays those images onto the screen. Optionally,
 images can be supplied via a rostopic.
 
