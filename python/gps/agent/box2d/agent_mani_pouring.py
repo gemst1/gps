@@ -48,11 +48,6 @@ class AgentMani(Agent):
         state = {JOINT_ANGLES: np.array(rs_state), END_EFFECTOR_POINTS: np.array(dis)}
         return state
 
-    def msg_to_state(self, msg, t):
-        joint_state = msg.traj
-        state = {JOINT_ANGLES: joint_state, JOINT_VELOCITIES: np.zeros(7), END_EFFECTOR_POINTS: np.array([t, joint_state[0], 0])}
-        return state
-
     def _init_pubs_and_subs(self):
         self._rs_traj_service = ServiceEmulator(
             'rs_traj_command_topic', Float32,
