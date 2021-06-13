@@ -20,7 +20,7 @@ from gps.gui.config import generate_experiment_info
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, ACTION
 
 SENSOR_DIMS = {
-    JOINT_ANGLES: 7,
+    JOINT_ANGLES: 60,
     END_EFFECTOR_POINTS: 3,
     ACTION: 7
 }
