@@ -68,7 +68,7 @@ class AgentMani(Agent):
         )
         self._reset_service = ServiceEmulator(
             'reset_command_topic', Float32,
-            'state_result_topic', traj_1d
+            'state_result_topic', GripperState
         )
 
 
@@ -96,6 +96,7 @@ class AgentMani(Agent):
         # state = self.msg_to_state(state_msg, 0)
         new_sample = self._init_sample(state)
         U = np.zeros([self.T, self.dU])
+        action_data = np.zeros(7)
         if noisy:
             noise = generate_noise(self.T, self.dU, self._hyperparams)
         else:
@@ -104,8 +105,11 @@ class AgentMani(Agent):
             X_t = new_sample.get_X(t=t)
             obs_t = new_sample.get_obs(t=t)
             U[t, :] = policy.act(X_t, obs_t, t, noise[t, :])
+            action_data[1] = U[t,1]
+            action_data[3] = U[t, 1]
+            action_data[5] = U[t, 1]
             if (t+1) < self.T:
-                state_msg = self._trial_service.publish_and_wait(U[t, :], 10)
+                state_msg = self._trial_service.publish_and_wait(action_data, 10)
                 rs_state_msg = self._rs_trial_service.publish_and_wait(0)
                 state = self.msgs_to_state(state_msg, rs_state_msg, t)
                 # state = self.msg_to_state(state_msg, t)
