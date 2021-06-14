@@ -77,11 +77,15 @@ action_cost = {
     'wu': np.array([1])
 }
 
+w = np.zeros(60)
+for i in range(60):
+    w[i] = (i+1)/60.0
+
 state_cost = {
     'type': CostState,
     'data_types' : {
         JOINT_ANGLES: {
-            'wp': np.ones(60),
+            'wp': w,
             'target_state': agent["target_state"],
         },
     },
