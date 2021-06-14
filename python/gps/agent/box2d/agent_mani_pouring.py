@@ -105,7 +105,9 @@ class AgentMani(Agent):
             X_t = new_sample.get_X(t=t)
             obs_t = new_sample.get_obs(t=t)
             U[t, :] = policy.act(X_t, obs_t, t, noise[t, :])
-            action_data[-4:] = U[t, :]
+            action_data[1] = U[t, 0]
+            action_data[3] = U[t, 1]
+            action_data[5] = U[t, 2]
             if (t+1) < self.T:
                 state_msg = self._trial_service.publish_and_wait(action_data, 10)
                 rs_state_msg = self._rs_trial_service.publish_and_wait(0)
