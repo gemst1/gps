@@ -12,6 +12,7 @@ from gps.algorithm.algorithm_traj_opt import AlgorithmTrajOpt
 from gps.algorithm.cost.cost_state import CostState
 from gps.algorithm.cost.cost_action import CostAction
 from gps.algorithm.cost.cost_sum import CostSum
+from gps.algorithm.cost.cost_utils import RAMP_LINEAR
 from gps.algorithm.dynamics.dynamics_lr_prior import DynamicsLRPrior
 from gps.algorithm.dynamics.dynamics_prior_gmm import DynamicsPriorGMM
 from gps.algorithm.traj_opt.traj_opt_lqr_python import TrajOptLQRPython
@@ -22,7 +23,7 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINT
 SENSOR_DIMS = {
     JOINT_ANGLES: 60,
     END_EFFECTOR_POINTS: 3,
-    ACTION: 3
+    ACTION: 4
 }
 
 BASE_DIR = '/'.join(str.split(gps_filepath, '/')[:-2])
@@ -66,8 +67,8 @@ algorithm['init_traj_distr'] = {
     'type': init_lqr,
     'init_gains': np.zeros(SENSOR_DIMS[ACTION]),
     'init_acc': np.zeros(SENSOR_DIMS[ACTION]),
-    'init_var': 0.1,
-    'stiffness': 0.01,
+    'init_var': 1.0,
+    'stiffness': 1.0,
     'dt': agent['dt'],
     'T': agent['T'],
 }
@@ -77,15 +78,12 @@ action_cost = {
     'wu': np.array([1])
 }
 
-w = np.zeros(60)
-for i in range(60):
-    w[i] = (i+1)/60.0
-
 state_cost = {
     'type': CostState,
+    'ramp_option': RAMP_LINEAR,
     'data_types' : {
         JOINT_ANGLES: {
-            'wp': w,
+            'wp': np.ones(60),
             'target_state': agent["target_state"],
         },
     },
