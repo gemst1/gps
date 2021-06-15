@@ -80,9 +80,6 @@ action_cost = {
 
 state_cost = {
     'type': CostState,
-    'ramp_option': RAMP_LINEAR,
-    'alpha': 1e-5,
-    'wp_final_multiplier': 10.0,
     'data_types' : {
         JOINT_ANGLES: {
             'wp': np.ones(200),
