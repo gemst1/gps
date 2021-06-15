@@ -21,7 +21,7 @@ from gps.gui.config import generate_experiment_info
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, ACTION
 
 SENSOR_DIMS = {
-    JOINT_ANGLES: 60,
+    JOINT_ANGLES: 200,
     END_EFFECTOR_POINTS: 3,
     ACTION: 3
 }
@@ -49,7 +49,7 @@ for i in range(100):
 agent = {
     'type': AgentMani,
     'target_state' : [45, 0, 0, 0, 0, 0, 0],
-    'x0': np.zeros(63),
+    'x0': np.zeros(203),
     'conditions': common['conditions'],
     'dt': 0.05,
     'T': 25,
@@ -83,7 +83,7 @@ state_cost = {
     'ramp_option': RAMP_LINEAR,
     'data_types' : {
         JOINT_ANGLES: {
-            'wp': np.ones(60),
+            'wp': np.ones(200),
             'target_state': agent["target_state"],
         },
     },
